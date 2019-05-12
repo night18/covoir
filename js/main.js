@@ -9,37 +9,67 @@ $(document).ready(function(){
 	fitscreen 			 = window_height - header_height;
 
 
+  $('a.page-scroll').click(function() {
+        if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+          var target = $(this.hash);
+          target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+          if (target.length) {
+            $('html,body').animate({
+              scrollTop: target.offset().top - 40
+            }, 900);
+            return false;
+          }
+        }
+      });
+
+    /*====================================
+    Show Menu on Book
+    ======================================*/
+    $(window).bind('scroll', function() {
+        var navHeight = $(window).height() - 80;
+        // if ($(window).scrollTop() > navHeight) {
+        //     $('.navbar-default').addClass('on');
+        // } else {
+        //     $('.navbar-default').removeClass('on');
+        // }
+    });
+
+    $('body').scrollspy({ 
+        target: '.navbar-default',
+        offset: 80
+    })
+
 	$(".fullscreen").css("height", window_height)
 	$(".fitscreen").css("height", fitscreen);
 
-     if(document.getElementById("default-select")){
-          $('select').niceSelect();
-    };
+    //  if(document.getElementById("default-select")){
+    //       $('select').niceSelect();
+    // };
 
-    $('.img-pop-up').magnificPopup({
-        type: 'image',
-        gallery:{
-        enabled:true
-        }
-    });
+    // $('.img-pop-up').magnificPopup({
+    //     type: 'image',
+    //     gallery:{
+    //     enabled:true
+    //     }
+    // });
 
 
-    $('.play-btn').magnificPopup({
-        type: 'iframe',
-        mainClass: 'mfp-fade',
-        removalDelay: 160,
-        preloader: false,
-        fixedContentPos: false
-    });
+    // $('.play-btn').magnificPopup({
+    //     type: 'iframe',
+    //     mainClass: 'mfp-fade',
+    //     removalDelay: 160,
+    //     preloader: false,
+    //     fixedContentPos: false
+    // });
 
 
   // Initiate superfish on nav menu
-  $('.nav-menu').superfish({
-    animation: {
-      opacity: 'show'
-    },
-    speed: 400
-  });
+  // $('.nav-menu').superfish({
+  //   animation: {
+  //     opacity: 'show'
+  //   },
+  //   speed: 400
+  // });
 
   // Mobile Navigation
   if ($('#nav-menu-container').length) {
@@ -82,7 +112,7 @@ $(document).ready(function(){
   }
 
   // Smooth scroll for the menu and links with .scrollto classes
-  $('.nav-menu a, #mobile-nav a, .scrollto').on('click', function() {
+  $('#mobile-nav a, .scrollto').on('click', function() {
     if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
       var target = $(this.hash);
       if (target.length) {
@@ -116,33 +146,140 @@ $(document).ready(function(){
   });
 
 
-    $(document).ready(function() {
+  /*====================================
+    Letter Animate
+    ======================================*/
 
-    $('html, body').hide();
-
-        if (window.location.hash) {
-
-        setTimeout(function() {
-
-        $('html, body').scrollTop(0).show();
-
-        $('html, body').animate({
-
-        scrollTop: $(window.location.hash).offset().top
-
-        }, 1000)
-
-        }, 0);
-
-        }
-
-        else {
-
-        $('html, body').show();
-
-        }
-
+    $('.ml4 .letters').each(function(){
+      $(this).html($(this).text().replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>"));
     });
+
+    anime.timeline({loop: true})
+    .add({
+      targets: '.ml4 .line',
+      scaleY: [0,1],
+      opacity: [0.5,1],
+      easing: "easeOutExpo",
+      duration: 700
+    })
+    .add({
+      targets: '.ml4 .line',
+      translateX: [0,$(".ml4 .letters-1").width()],
+      easing: "easeOutExpo",
+      duration: 700,
+      delay: 100
+    }).add({
+      targets: '.ml4 .letters-1 .letter',
+      opacity: [0,1],
+      easing: "easeOutExpo",
+      duration: 600,
+      offset: '-=775',
+      delay: function(el, i) {
+        return 34 * (i+1)
+      }
+    })
+    .add({
+      targets: '.ml4 .letters-1, .ml4 .line',
+      opacity: 0,
+      easing: "easeOutExpo",
+    })
+    .add({
+      targets: '.ml4 .line',
+      scaleY: [0,1],
+      opacity: [0.5,1],
+      easing: "easeOutExpo",
+      duration: 700
+    })
+    .add({
+      targets: '.ml4 .line',
+      translateX: [0,$(".ml4 .letters-2").width()],
+      easing: "easeOutExpo",
+      duration: 700,
+      delay: 100
+    }).add({
+      targets: '.ml4 .letters-2 .letter',
+      opacity: [0,1],
+      easing: "easeOutExpo",
+      duration: 600,
+      offset: '-=775',
+      delay: function(el, i) {
+        return 34 * (i+1)
+      }
+    })
+    .add({
+      targets: '.ml4 .letters-2, .ml4 .line',
+      opacity: 0,
+      easing: "easeOutExpo",
+    })
+    .add({
+      targets: '.ml4 .line',
+      scaleY: [0,1],
+      opacity: [0.5,1],
+      easing: "easeOutExpo",
+      duration: 700
+    })
+    .add({
+      targets: '.ml4 .line',
+      translateX: [0,$(".ml4 .letters-3").width()],
+      easing: "easeOutExpo",
+      duration: 700,
+      delay: 100
+    }).add({
+      targets: '.ml4 .letters-3 .letter',
+      opacity: [0,1],
+      easing: "easeOutExpo",
+      duration: 600,
+      offset: '-=775',
+      delay: function(el, i) {
+        return 34 * (i+1)
+      }
+    })
+    .add({
+      targets: '.ml4 .letters-3, .ml4 .line',
+      opacity: 0,
+      easing: "easeOutExpo",
+    });
+
+    anime.timeline({loop: true})
+    .add({
+      targets: '.button-container .fa-angle-down',
+      translateY:[-15,0],
+      duration:600
+    })
+    .add({
+      targets: '.button-container .fa-angle-down',
+      translateY:[0,-15],
+      duration:600
+    });
+
+   
+    // $(document).ready(function() {
+
+    // $('html, body').hide();
+
+    //     if (window.location.hash) {
+
+    //     setTimeout(function() {
+
+    //     $('html, body').scrollTop(0).show();
+
+    //     $('html, body').animate({
+
+    //     scrollTop: $(window.location.hash).offset().top
+
+    //     }, 1000)
+
+    //     }, 0);
+
+    //     }
+
+    //     else {
+
+    //     $('html, body').show();
+
+    //     }
+
+    // });
   
 
   // Header scroll class
@@ -246,9 +383,9 @@ $(document).ready(function(){
     }
 
 
-        $(document).ready(function() {
-            $('#mc_embed_signup').find('form').ajaxChimp();
-        });      
+        // $(document).ready(function() {
+        //     $('#mc_embed_signup').find('form').ajaxChimp();
+        // });      
 
 
 
